@@ -22,7 +22,7 @@ function divide (a, b) {
     
 };
 
-function operator (num1, num2, operator) {
+function operate (num1, num2, operator) {
     switch (operator) {
         case 'add':
             return add(num1, num2);
@@ -35,4 +35,15 @@ function operator (num1, num2, operator) {
         default:
             return 'Sorry, something went wrong, try again';
     }
+}
+
+const main_screen = document.querySelector('#main');
+
+for (let i = 0; i < 16; i++) {
+    const div = document.createElement('div');
+    div.className = 'button';
+    div.textContent = i;
+    main_screen.appendChild(div);
+    
+    
 }
