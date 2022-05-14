@@ -36,14 +36,22 @@ function operate (num1, num2, operator) {
             return 'Sorry, something went wrong, try again';
     }
 }
+const symbols = ['%','CE', 'C', '←', '7','8','9','/',
+                '4', '5', '6','X', '1', '2', '3','-',
+                '0','.','+', '='];
+                
+                
+const container = document.querySelector('.container');
+const buttons = document.querySelector('.buttons');
 
-const main_screen = document.querySelector('#main');
-
-for (let i = 0; i < 16; i++) {
-    const div = document.createElement('div');
+for (let i = 0; i < 20; i++) {
+    const div = document.createElement('button');
     div.className = 'button';
-    div.textContent = i;
-    main_screen.appendChild(div);
-    
+    div.setAttribute('id',`${symbols[i]}`);
+    div.textContent = symbols[i];
+    buttons.appendChild(div);    
     
 }
+
+const display = document.querySelector('.display');
+display.textContent = 'display';
