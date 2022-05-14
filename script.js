@@ -24,13 +24,13 @@ function divide (a, b) {
 
 function operate (num1, num2, operator) {
     switch (operator) {
-        case 'add':
+        case '+':
             return add(num1, num2);
-        case 'subtract':
+        case '-':
             return subtract(num1, num2);
-        case 'multiply':
+        case 'X':
             return multiply(num1, num2);
-        case 'divide':
+        case '/':
             return divide(num1, num2);
         default:
             return 'Sorry, something went wrong, try again';
@@ -54,11 +54,33 @@ for (let i = 0; i < 20; i++) {
 }
 
 const display = document.querySelector('.display');
-display.textContent = '55';
+let display_value = 0;
 
+//clearing display
 const clear_button = document.querySelector('#C');
-
 clear_button.addEventListener('click', () => {
     const display = document.querySelector('.display');
-    display.textContent = 0;
+    display.textContent = '';
 })
+
+const value_buttons = container.querySelectorAll('button');
+value_buttons.forEach(button => {
+     if (!isNaN(button.textContent)){
+         button.addEventListener('click', () => {
+            display.textContent += button.textContent;
+         })
+     }
+     else if(isNaN(button.textContent) && button.textContent !== 'C'){
+         button.addEventListener('click', () => {
+            display_value = display.textContent;
+            let operator = button.textContent;
+            console.log(operator);
+            display.textContent = operator;
+         })
+        
+
+        
+     }
+    
+});
+

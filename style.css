@@ -11,12 +11,15 @@ body{
     display: flex;
     flex-direction: column;
     background-color: antiquewhite;
+    width: auto;
+    resize: none;
 }
 .buttons{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(5, 1fr);
     border: 1px solid #000000;
+    resize: none;
 }
 .button{
     border: 1px solid #000000;
@@ -28,7 +31,9 @@ body{
     height: 7em;
 }
 .display{
-    display:flex;
+    display: flex;
+    resize: none;
+    overflow: hidden;
     align-items: center;
     justify-content: flex-end;
     padding-right: 25px;
@@ -36,4 +41,5 @@ body{
     height: 85px;
     background-color: antiquewhite;
     font-size: 35px;
+
 }
