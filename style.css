@@ -33,6 +33,7 @@ body{
     justify-content: flex-end;
     padding-right: 25px;
     border: 1px solid #000000;
-    height: 5em;
+    height: 85px;
     background-color: antiquewhite;
+    font-size: 35px;
 }

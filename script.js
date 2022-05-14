@@ -54,4 +54,11 @@ for (let i = 0; i < 20; i++) {
 }
 
 const display = document.querySelector('.display');
-display.textContent = 'display';
+display.textContent = '55';
+
+const clear_button = document.querySelector('#C');
+
+clear_button.addEventListener('click', () => {
+    const display = document.querySelector('.display');
+    display.textContent = 0;
+})
