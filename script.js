@@ -1,27 +1,24 @@
 function add(a, b) {
-    return a + b;
+    return parseInt(a) + parseInt(b);
   };
   
 function subtract (a, b) {
-      return a - b;
+    return parseInt(a) - parseInt(b);
 };
   
 function multiply (a, b) {
-    return a * b;
+    return parseInt(a) * parseInt(b);
 };
   
 function divide (a, b) {
-    if (b === 0){
-        throw 'Don\'t divide by zero';
+    if (b == 0){
+        return 'Don\'t divide by zero';
     }
-    try {
-        return a / b;    
-    } catch (e) {
-        console.error(e);
-    }
+    else {
+        return parseInt(a) / parseInt(b);
     
 };
-
+}
 function operate (num1, num2, operator) {
     switch (operator) {
         case '+':
@@ -33,54 +30,73 @@ function operate (num1, num2, operator) {
         case '/':
             return divide(num1, num2);
         default:
-            return 'Sorry, something went wrong, try again';
+            return 'Something went wrong, try again';
     }
 }
+
+// function clearDisplay() {}
 const symbols = ['%','CE', 'C', '←', '7','8','9','/',
                 '4', '5', '6','X', '1', '2', '3','-',
-                '0','.','+', '='];
+                '0',',','+', '='];
                 
                 
 const container = document.querySelector('.container');
-const buttons = document.querySelector('.buttons');
+const buttons = container.querySelector('.buttons');
+
+const display = container.querySelector('.display');
+let stored_value = 0;
+let operator = '';
 
 for (let i = 0; i < 20; i++) {
     const div = document.createElement('button');
     div.className = 'button';
     div.setAttribute('id',`${symbols[i]}`);
     div.textContent = symbols[i];
-    buttons.appendChild(div);    
-    
+    buttons.appendChild(div);        
 }
-
-const display = document.querySelector('.display');
-let display_value = 0;
-
 //clearing display
 const clear_button = document.querySelector('#C');
 clear_button.addEventListener('click', () => {
-    const display = document.querySelector('.display');
     display.textContent = '';
 })
 
-const value_buttons = container.querySelectorAll('button');
-value_buttons.forEach(button => {
-     if (!isNaN(button.textContent)){
-         button.addEventListener('click', () => {
-            display.textContent += button.textContent;
-         })
-     }
-     else if(isNaN(button.textContent) && button.textContent !== 'C'){
-         button.addEventListener('click', () => {
-            display_value = display.textContent;
-            let operator = button.textContent;
-            console.log(operator);
-            display.textContent = operator;
-         })
-        
+const clickedButtons = container.querySelectorAll('button');
 
+clickedButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        //number
+        getNumber(button);
+        getOperator(button);
+        getResult(button);
+        //operator
         
-     }
-    
-});
+       
+    })
+})
 
+function getNumber(button) {
+    if (!isNaN(button.id)){
+        if (isNaN(display.textContent)){
+            display.textContent = '';
+        }
+        display.textContent += button.id;
+    }
+}
+function getOperator(button) {
+    if (isNaN(button.id) && button.id !== 'C' && button.id !== '='){
+        const color = '80%';
+        button.style.filter = `brightness(${color})`;
+        stored_value = display.textContent.trim();
+        display.textContent = '';
+        operator = button.id;            
+        }
+}
+function getResult(button) {
+    if (button.id === '='){
+        const operatorButton = document.getElementById(operator);
+        const color = '100%';
+        operatorButton.style.filter = `brightness(${color})`;
+        let result = operate(stored_value, display.textContent.trim(), operator)
+        display.textContent = result;
+    }
+}
