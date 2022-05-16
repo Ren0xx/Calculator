@@ -37,10 +37,9 @@ body{
     height: 85px;
     background-color: antiquewhite;
     font-size: 35px;
-    width: 350px;
     
     
-    max-width: 15ch;
+    max-width: 20ch;
     text-overflow:ellipsis;
     resize: none;
     overflow:hidden;

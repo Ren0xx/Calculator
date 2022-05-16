@@ -75,11 +75,15 @@ clickedButtons.forEach(button => {
 })
 
 function getNumber(button) {
-    if (!isNaN(button.id)){
+    const howManyDigits = display.textContent.trim().length;
+    if (!isNaN(button.id) ){
         if (isNaN(display.textContent)){
             display.textContent = '';
         }
+    else if (howManyDigits < 20){
         display.textContent += button.id;
+        }
+        
     }
 }
 function getOperator(button) {
