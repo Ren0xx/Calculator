@@ -17,7 +17,10 @@ function divide (a, b) {
     else {
         return parseInt(a) / parseInt(b);
     
-};
+    };
+}
+function modulo (a, b) {
+    return parseInt(a) % parseInt(b);
 }
 function operate (num1, num2, operator) {
     switch (operator) {
@@ -29,8 +32,8 @@ function operate (num1, num2, operator) {
             return multiply(num1, num2);
         case '/':
             return divide(num1, num2);
-        default:
-            return 'Something went wrong, try again';
+        case '%':
+            return modulo(num1, num2);
     }
 }
 
@@ -68,39 +71,53 @@ clickedButtons.forEach(button => {
         getNumber(button);
         getOperator(button);
         getResult(button);
-        //operator
-        
-       
-    })
+        //operator      
+       })
+})
+const buttonDecimal = document.getElementById(',');
+buttonDecimal.addEventListener('click', () =>{
+    display.textContent += '.';
+    buttonDecimal.disabled = true;
+})
+
+const backspaceButton = document.getElementById('←');
+backspaceButton.addEventListener('click', () =>{
+    if (display.textContent !== '') {
+        display.textContent = display.textContent.slice(0, -1);
+    }
 })
 
 function getNumber(button) {
     const howManyDigits = display.textContent.trim().length;
-    if (!isNaN(button.id) ){
-        if (isNaN(display.textContent)){
+    if (!isNaN(button.id)){
+        if (isNaN(display.textContent) || display.textContent === '0') {
             display.textContent = '';
         }
-    else if (howManyDigits < 20){
+    else if (howManyDigits < 16){
         display.textContent += button.id;
         }
         
     }
 }
 function getOperator(button) {
-    if (isNaN(button.id) && button.id !== 'C' && button.id !== '='){
-        const color = '80%';
-        button.style.filter = `brightness(${color})`;
-        stored_value = display.textContent.trim();
+    if (isNaN(button.id) && button.id === '/' || button.id === 'X' || button.id === '-' || button.id === '+'){
+        // const color = '80%';
+        // button.style.filter = `brightness(${color})`;
+        buttonDecimal.disabled = false;
+        if (display.textContent !== ''){
+            stored_value = display.textContent.trim();
+        }
         display.textContent = '';
         operator = button.id;            
-        }
+    }
 }
 function getResult(button) {
     if (button.id === '='){
-        const operatorButton = document.getElementById(operator);
-        const color = '100%';
-        operatorButton.style.filter = `brightness(${color})`;
-        let result = operate(stored_value, display.textContent.trim(), operator)
+        // const operatorButton = document.getElementById(operator);
+        // const color = '100%';
+        // operatorButton.style.filter = `brightness(${color})`;
+        let result = operate(stored_value, display.textContent, operator)
         display.textContent = result;
+        
     }
 }
