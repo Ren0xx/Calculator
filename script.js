@@ -50,6 +50,7 @@ const display = container.querySelector('.display');
 let stored_value = 0;
 let operator = '';
 
+
 for (let i = 0; i < 20; i++) {
     const div = document.createElement('button');
     div.className = 'button';
@@ -64,7 +65,13 @@ clear_button.addEventListener('click', () => {
 })
 
 const clickedButtons = container.querySelectorAll('button');
-
+clickedButtons.forEach(button => {
+    if (isNaN(button.id) && button.id !== ',' && button.id !== '+'){
+        console.log(button.id);
+        button.classList.add('buttonsNumeric');
+    }
+}
+)
 clickedButtons.forEach(button => {
     button.addEventListener('click', () => {
         //number
@@ -117,7 +124,7 @@ function getResult(button) {
         // const color = '100%';
         // operatorButton.style.filter = `brightness(${color})`;
         let result = operate(stored_value, display.textContent, operator)
-        display.textContent = result;
+        display.textContent = result.toFixed(4);
         
     }
 }

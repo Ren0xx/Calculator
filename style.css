@@ -30,6 +30,9 @@ body{
     border: 2px solid rgb(0, 0, 0);
     background-color: hsl(221, 50%, 70%);
 }
+.buttonsNumeric{
+    background-color: green;
+}
 .display{
     display: flex;
     align-items: center;
