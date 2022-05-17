@@ -60,7 +60,7 @@ function getOperator(button) {
 }
 function getResult(button) {
     if (button.id === '='){
-        let result = operate(stored_value, display.textContent, operator).toPrecision(10);
+        let result = operate(stored_value, display.textContent, operator);
         display.textContent = result;
         
     }
@@ -120,3 +120,5 @@ clearEverythingButton.addEventListener('click', () =>{
     display.textContent = '';
     stored_value = 0;
 })
+
+document.getElementById("year").innerHTML = new Date().getFullYear();
