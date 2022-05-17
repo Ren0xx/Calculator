@@ -36,64 +36,6 @@ function operate (num1, num2, operator) {
             return modulo(num1, num2);
     }
 }
-
-// function clearDisplay() {}
-const symbols = ['%','CE', 'C', '←', '7','8','9','/',
-                '4', '5', '6','X', '1', '2', '3','-',
-                '0',',','+', '='];
-                
-                
-const container = document.querySelector('.container');
-const buttons = container.querySelector('.buttons');
-
-const display = container.querySelector('.display');
-let stored_value = 0;
-let operator = '';
-
-
-for (let i = 0; i < 20; i++) {
-    const div = document.createElement('button');
-    div.className = 'button';
-    div.setAttribute('id',`${symbols[i]}`);
-    div.textContent = symbols[i];
-    buttons.appendChild(div);        
-}
-//clearing display
-const clear_button = document.querySelector('#C');
-clear_button.addEventListener('click', () => {
-    display.textContent = '';
-})
-
-const clickedButtons = container.querySelectorAll('button');
-clickedButtons.forEach(button => {
-    if (isNaN(button.id) && button.id !== ',' && button.id !== '+'){
-        console.log(button.id);
-        button.classList.add('buttonsNumeric');
-    }
-}
-)
-clickedButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        //number
-        getNumber(button);
-        getOperator(button);
-        getResult(button);
-        //operator      
-       })
-})
-const buttonDecimal = document.getElementById(',');
-buttonDecimal.addEventListener('click', () =>{
-    display.textContent += '.';
-    buttonDecimal.disabled = true;
-})
-
-const backspaceButton = document.getElementById('←');
-backspaceButton.addEventListener('click', () =>{
-    if (display.textContent !== '') {
-        display.textContent = display.textContent.slice(0, -1);
-    }
-})
-
 function getNumber(button) {
     const howManyDigits = display.textContent.trim().length;
     if (!isNaN(button.id)){
@@ -107,9 +49,7 @@ function getNumber(button) {
     }
 }
 function getOperator(button) {
-    if (isNaN(button.id) && button.id === '/' || button.id === 'X' || button.id === '-' || button.id === '+'){
-        // const color = '80%';
-        // button.style.filter = `brightness(${color})`;
+    if (isNaN(button.id) && button.id === '/' || button.id === 'X' || button.id === '-' || button.id === '+' || button.id === '%'){
         buttonDecimal.disabled = false;
         if (display.textContent !== ''){
             stored_value = display.textContent.trim();
@@ -120,11 +60,63 @@ function getOperator(button) {
 }
 function getResult(button) {
     if (button.id === '='){
-        // const operatorButton = document.getElementById(operator);
-        // const color = '100%';
-        // operatorButton.style.filter = `brightness(${color})`;
-        let result = operate(stored_value, display.textContent, operator)
-        display.textContent = result.toFixed(4);
+        let result = operate(stored_value, display.textContent, operator).toPrecision(10);
+        display.textContent = result;
         
     }
 }
+function addClass(button){
+    if (isNaN(button.id) && button.id !== ',' && button.id !== '+'){
+        button.classList.add('buttonsNumeric');   
+}
+}
+const symbols = ['%','CE', 'C', '←', '7','8','9','/',
+                '4', '5', '6','X', '1', '2', '3','-',
+                '0',',','+', '='];
+const container = document.querySelector('.container');
+const buttons = container.querySelector('.buttons');
+const display = container.querySelector('.display');
+
+let stored_value = 0;
+let operator = '';
+
+//creating all buttons
+for (let i = 0; i < 20; i++) {
+    const div = document.createElement('button');
+    div.className = 'button';
+    div.setAttribute('id',`${symbols[i]}`);
+    div.textContent = symbols[i];
+    buttons.appendChild(div);        
+}
+//clearing display
+const clearButton = document.querySelector('#C');
+clearButton.addEventListener('click', () => {
+    display.textContent = '';
+})
+
+const allButtons = container.querySelectorAll('button');
+allButtons.forEach(button => {
+    addClass(button);
+    button.addEventListener('click', () => {
+        getNumber(button);
+        getOperator(button);
+        getResult(button);
+    })
+})
+const buttonDecimal = document.getElementById(',');
+buttonDecimal.addEventListener('click', () =>{
+    display.textContent += '.';
+    buttonDecimal.disabled = true;
+})
+
+const backspaceButton = document.getElementById('←');
+backspaceButton.addEventListener('click', () =>{
+    if (display.textContent !== '') {
+        display.textContent = display.textContent.slice(0, -1);
+    }
+})
+const clearEverythingButton = document.getElementById('CE')
+clearEverythingButton.addEventListener('click', () =>{
+    display.textContent = '';
+    stored_value = 0;
+})
